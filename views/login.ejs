@@ -4,12 +4,16 @@
 <%- include("./partials/head.ejs") %>
 
 <body>
-  <form id="login">
-    <label for="UserName">User name:</label>
-    <input type="text" name="username" id="username" required>
-    <label for="Password">Password:</label>
-    <input type="text" name="password" id="password" required>
-    <button>Submit</button>
-  </form>    
+
+  <div>
+    <form action="/login" method="POST">
+      <label for="UserName">User name:</label>
+      <input type="text" name="username" id="username" required>
+      <label for="Password">Password:</label>
+      <input type="text" name="password" id="password" required>
+      <button>Submit</button>
+    </form>
+  </div>
+  
 </body>
 </html>

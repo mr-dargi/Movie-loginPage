@@ -18,3 +18,22 @@ app.listen(3000, () => {
 })
 
 // router 
+app.get("/", (req, res) => {
+  res.redirect("/login");
+})
+
+app.get("/login", (req, res) => {
+  res.render("login", { title: "LOGIN PAGE" });
+})
+
+app.get("/login", (req, res) => {
+  res.render("sign-up", { title: "SIGN UP" });
+})
+
+app.get("/login", (req, res) => {
+  res.render("changing-password", { title: "CHANGING PASSWORD" });
+})
+
+app.use((req, res) => {
+  res.status(404).render("404", { title: "404" });
+})
