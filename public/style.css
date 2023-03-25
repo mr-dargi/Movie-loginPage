@@ -1,0 +1,19 @@
+@font-face {
+  font-family: myFirstFont;
+  src: url(./fonts/Yekan.woff);
+}
+
+* {
+  font-family: myFirstFont !important;
+}
+
+html {
+  direction: rtl;
+}
+
+.form-style {
+  border: 1px solid black;
+  height: 500px;
+  width: 150vh;
+  margin: 40px;
+}

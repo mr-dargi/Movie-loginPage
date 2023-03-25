@@ -5,18 +5,41 @@
 
 <body>
 
-  <div>
+  <div class="d-flex form-style">
+
+    <div class="container-fluid col-sm-6">
+
       <form action="/sign-up" method="POST">
-        <label for="UserName">Email:</label>
-        <input type="text" name="email" id="email" required>
-        <label for="UserName">User name:</label>
-        <input type="text" name="username" id="username" required>
-        <label for="Password">Password:</label>
-        <input type="text" name="password" id="password" required>
-        <button>Submit</button>
+
+        <div class="form-group row">
+          <label for="UserName">ایمیل:</label>
+          <input class="form-control" type="text" name="email" id="email" required>
+        </div>
+
+        <div class="form-group row">        
+          <label for="UserName">نام کاربری:</label>
+          <input class="form-control" type="text" name="username" id="username" required>
+        </div>
+
+        <div class="form-group row">
+          <label for="Password">کلمه عبور:</label>
+          <input class="form-control" type="text" name="password" id="password" required>
+        </div>
+        
+        <div class="d-grid row">
+          <button class="btn btn-primary btn-block">ثبت نام</button>
+        </div>
+
       </form>
+
+      <h4>اگر از قبل دارای حساب کاربری می باشید اینجا  <a href="/login">کلیک</a> کنید.</h4>
+    </div>
+
+    <div class="col-sm-6">
+      something
+    </div>
   </div>
-  <h4>If you already have an acount please click <a href="/login">here</a> to login</h4>
+
 
 </body>
 </html>
