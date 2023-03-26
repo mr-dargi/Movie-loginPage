@@ -25,11 +25,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  res.render("login", { title: "LOGIN PAGE" });
+  res.render("login", { title: "LOGIN PAGE", img: "login" });
 });
 
 app.get("/sign-up", (req, res) => {
-  res.render("sign-up", { title: "SIGN UP" });
+  res.render("sign-up", { title: "SIGN UP", img: "signUp"  });
 });
 
 app.get("/change-password", (req, res) => {

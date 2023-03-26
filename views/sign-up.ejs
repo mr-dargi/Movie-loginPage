@@ -4,15 +4,19 @@
 <%- include("./partials/head.ejs") %>
 
 <body>
-  
+
+  <!-------------------------
+     form section 
+  -------------------------->
   <div class="d-flex form-style">
 
+    <!-------------------------
+     form right section 
+    -------------------------->
     <div class="form-right-side container-fluid col-12 col-lg-6">
-
       <form action="/sign-up" method="POST">
-
         <div class="form-group">
-          <label for="UserName">ایمیل:</label>
+          <label for="email">ایمیل:</label>
           <input class="form-control" type="text" name="email" id="email" required>
         </div>
 
@@ -29,15 +33,18 @@
         <div class="d-grid">
           <button class="btn btn-primary btn-block">ثبت نام</button>
         </div>
-
       </form>
-
+      
+      <!-------------------------
+        link for login page
+      -------------------------->
       <h4>اگر از قبل دارای حساب کاربری می باشید اینجا  <a href="/login">کلیک</a> کنید.</h4>
     </div>
 
-    <div class="form-img col-12 col-lg-6">
-      <img src="./img/it1.jpg" alt="">
-    </div>
+    <!-------------------------
+     form left section 
+    -------------------------->
+    <%- include("./partials/formImg.ejs") %>
   </div>
 
 

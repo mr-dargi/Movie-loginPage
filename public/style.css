@@ -69,6 +69,7 @@ button.btn.btn-primary.btn-block {
 
 @media only screen and (min-width: 992px) {
   .form-img img {
+    position: relative;
     display: block;
     border-radius: 40px 0 0 40px;
     width: 100%;
