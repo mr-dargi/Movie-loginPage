@@ -66,6 +66,18 @@ button.btn.btn-primary.btn-block {
   margin: 25px 0;
 }
 
+.title-of-form-sign-up {
+  position: absolute;
+  top: 10%;
+  right: 35%;
+}
+
+.title-of-form-login {
+  position: absolute;
+  top: 10%;
+  right: 45%;
+}
+
 
 @media only screen and (min-width: 992px) {
   .form-img img {
@@ -76,4 +88,12 @@ button.btn.btn-primary.btn-block {
     height: 100%;
     position: relative;
   }
+  .title-of-form-sign-up {
+    right: 16%;
+  }
+  
+  .title-of-form-login {
+    right: 22%;
+  }
+  
 }
