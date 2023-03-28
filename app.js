@@ -2,7 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const User = require("./models/user");
+
+JWT_SECRET = "slkdfjojfasnviearfoowe@lkjas#alsdkjfljsaldfk";
 
 // express app
 const app = express();
@@ -70,8 +73,10 @@ app.post("/sign-up", async (req, res) => {
     })
   };
 
+  // hashing a password
   const password = await bcrypt.hash(plainTextPassword, 10);
 
+  // pass email, username and password to mongodb
   try {
     const response = await User.create({
       email,
@@ -91,8 +96,36 @@ app.post("/sign-up", async (req, res) => {
 
 })
 
-app.post("/login", (req, res) => {
-  console.log(req.body);
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+
+  const user = await User.findOne({ username }).lean();
+
+  if(!user) {
+    return res.json({
+      status: "error",
+      error: "Invalid Username/Password"
+    })
+  };
+
+  if (await bcrypt.compare(password, user.password)) {
+    const token = jwt.sign({
+      id: user._id,
+      username: user.username
+    },
+    JWT_SECRET
+    );
+
+    res.json({ 
+      status: "ok",
+      data: token
+     })
+  } else {
+    return res.json({
+      status: "error",
+      error: "Invalid Username/Password"
+    })
+  }
 })
 
 
