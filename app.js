@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
+const bcrypt = require("bcryptjs");
 const User = require("./models/user");
 
 // express app
@@ -14,10 +15,18 @@ app.use(express.static("public"));
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }))
 
-// listen for request
-app.listen(3000, () => {
-  console.log("listining on port 3000");
-});
+// connect to mongodb
+const dbURI = "mongodb://localhost:27017";
+
+mongoose.connect(dbURI)
+  .then(
+    // listen for request
+    app.listen(3000, () => {
+      console.log("listining on port 3000");
+    })
+  )
+  .catch(err => console.log(err));
+
 
 // router 
 app.get("/", (req, res) => {
@@ -37,10 +46,33 @@ app.get("/change-password", (req, res) => {
 });
 
 // post actions
+app.post("/sign-up", async (req, res) => {
+  const { email, username, password: plainTextPassword } = req.body;
+
+  const password = await bcrypt.hash(plainTextPassword, 10);
+
+  try {
+    const response = await User.create({
+      email,
+      username,
+      password
+    });
+    console.log("User Created successfully: ", response);
+  } catch(error) {
+    if(error.code === 11000) {
+      return res.json({
+        status: "error",
+        error: "Username or email is already exist"
+      })
+    }
+    throw error
+  };
+
+})
+
 app.post("/login", (req, res) => {
   console.log(req.body);
 })
-
 
 
 // 404 page
