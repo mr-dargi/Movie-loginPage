@@ -49,6 +49,27 @@ app.get("/change-password", (req, res) => {
 app.post("/sign-up", async (req, res) => {
   const { email, username, password: plainTextPassword } = req.body;
 
+  if(!username || typeof username !== "string") {
+    return res.json({
+      status: "error",
+      error: "Invalid username"
+    })
+  };
+
+  if(!plainTextPassword || typeof plainTextPassword !== "string") {
+    return res.json({
+      status: "error",
+      error: "Invalid password"
+    })
+  };
+
+  if(plainTextPassword < 8) {
+    return res.json({
+      status: "error",
+      error: "Password is too small, the password should be atleast 8 character"
+    })
+  };
+
   const password = await bcrypt.hash(plainTextPassword, 10);
 
   try {
