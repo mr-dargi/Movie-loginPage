@@ -9,6 +9,7 @@ JWT_SECRET = "slkdfjojfasnviearfoowe@lkjas#alsdkjfljsaldfk";
 
 // express app
 const app = express();
+app.use(express.json());
 
 // register view engine
 app.set("view engine", "ejs");
@@ -16,10 +17,10 @@ app.set("view engine", "ejs");
 // middleware & static file
 app.use(express.static("public"));
 app.use(morgan("dev"));
-app.use(express.urlencoded({ extended: true }))
+
 
 // connect to mongodb
-const dbURI = "mongodb://localhost:27017";
+const dbURI = "mongodb://localhost:27017/users";
 
 mongoose.connect(dbURI)
   .then(
@@ -49,29 +50,29 @@ app.get("/change-password", (req, res) => {
 });
 
 // post actions
-app.post("/sign-up", async (req, res) => {
+app.post("/api/sign-up", async (req, res) => {
   const { email, username, password: plainTextPassword } = req.body;
 
   if(!username || typeof username !== "string") {
-    return res.json({
-      status: "error",
-      error: "Invalid username"
-    })
-  };
+    return res.json({ 
+        status: "error",
+        error: "Invalid username"
+    });
+}
 
-  if(!plainTextPassword || typeof plainTextPassword !== "string") {
-    return res.json({
-      status: "error",
-      error: "Invalid password"
-    })
-  };
+if(!plainTextPassword || typeof plainTextPassword !== "string") {
+    return res.json({ 
+        status: "error",
+        error: "Invalid password"
+    });
+}
 
-  if(plainTextPassword < 8) {
-    return res.json({
-      status: "error",
-      error: "Password is too small, the password should be atleast 8 character"
-    })
-  };
+if(plainTextPassword.length < 8) {
+    return res.json({ 
+        status: "error",
+        error: "Password is too small, the password should be atleast 8 characters"
+    });
+}
 
   // hashing a password
   const password = await bcrypt.hash(plainTextPassword, 10);
@@ -82,7 +83,7 @@ app.post("/sign-up", async (req, res) => {
       email,
       username,
       password
-    });
+    })
     console.log("User Created successfully: ", response);
   } catch(error) {
     if(error.code === 11000) {
@@ -96,10 +97,12 @@ app.post("/sign-up", async (req, res) => {
 
 })
 
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
 
   const user = await User.findOne({ username }).lean();
+
+  console.log(user);
 
   if(!user) {
     return res.json({
@@ -121,7 +124,7 @@ app.post("/login", async (req, res) => {
       data: token
      })
   } else {
-    return res.json({
+    res.json({
       status: "error",
       error: "Invalid Username/Password"
     })

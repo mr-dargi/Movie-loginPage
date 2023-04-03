@@ -15,15 +15,15 @@
     -------------------------->
     <div class="form-right-side container-fluid col-12 col-lg-6">
       <h3 class="title-of-form-login">ورود</h3>
-      <form action="/login" method="POST">
+      <form id="login">
         <div class="form-group">        
           <label for="UserName">نام کاربری:</label>
-          <input class="form-control" type="text" name="username" id="username" required>
+          <input class="form-control" type="text" autocomplete="off" name="username" id="username" required>
         </div>
 
         <div class="form-group">
           <label for="Password">کلمه عبور:</label>
-          <input class="form-control" type="password" name="password" id="password" required>
+          <input class="form-control" type="password" autocomplete="off" name="password" id="password" required>
         </div>
         
         <div class="d-grid">
@@ -42,6 +42,36 @@
     -------------------------->
     <%- include("./partials/formImg.ejs") %>
   </div>
+
+  <script>
+    const form = document.getElementById("login");
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+
+      const result = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "content-type" : "application/josn"
+        },
+        body: JSON.stringify({
+          username,
+          password
+        })
+      })
+        .then(res => res.json());  
+
+      if(result.status === "ok") {
+        localStorage.setItem("token", result.data);
+        alert("Successfull");
+      } else {
+        alert(result.error);
+      }
+    })
+  </script>
   
 </body>
 </html>
