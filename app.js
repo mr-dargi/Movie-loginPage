@@ -98,11 +98,9 @@ if(plainTextPassword.length < 8) {
 })
 
 app.post("/api/login", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password } = req.body;;
 
   const user = await User.findOne({ username }).lean();
-
-  console.log(user);
 
   if(!user) {
     return res.json({

@@ -44,33 +44,34 @@
   </div>
 
   <script>
-    const form = document.getElementById("login");
+  const form = document.getElementById("login");
 
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
 
-      const result = await fetch("/api/login", {
+
+    const result = await fetch("/api/login", {
         method: "POST",
         headers: {
-          "content-type" : "application/josn"
+            "Content-type": "application/json"
         },
         body: JSON.stringify({
           username,
           password
         })
-      })
-        .then(res => res.json());  
-
-      if(result.status === "ok") {
-        localStorage.setItem("token", result.data);
-        alert("Successfull");
-      } else {
-        alert(result.error);
-      }
     })
+        .then(res => res.json());
+
+    if(result.status === "ok") {
+        localStorage.setItem("token", result.data)
+        alert("Success");
+    } else {
+        alert(result.error);
+    }
+  });
   </script>
   
 </body>
