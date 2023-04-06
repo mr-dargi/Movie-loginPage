@@ -83,8 +83,10 @@ if(plainTextPassword.length < 8) {
       email,
       username,
       password
-    })
-    console.log("User Created successfully: ", response);
+    });
+    return res.json({ 
+      status: "ok",
+     });
   } catch(error) {
     if(error.code === 11000) {
       return res.json({
