@@ -82,17 +82,20 @@ button.btn.btn-primary.btn-block {
   position: absolute;
   top: 10%;
   right: 37%;
-  color: white;
   font-size: xx-large;
 }
 
 .form-change-password {
-  background: linear-gradient(180deg, rgba(47,235,237,1) 0%, rgba(145,203,197,1) 50%, rgba(255,213,114,1) 100%, rgba(253,187,45,1) 100%);
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(145,203,197,1) 60%, rgba(145,203,197,1) 100%, rgba(253,187,45,1) 100%);
 }
 
 .d-flex.form-style.form-change-password {
   box-shadow: none;
   border: none;
+}
+
+#change-password-background {
+  background-color: #222222;
 }
 
 @media only screen and (min-width: 992px) {
