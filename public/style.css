@@ -25,7 +25,7 @@ body {
   position: relative;
   background-color: white;
   border: 1px solid black;
-  border-radius: 50px;
+  border-radius: 48px;
   height: 650px;
   width: 75vw;
   box-shadow: -11px 14px 10px black;
@@ -78,6 +78,22 @@ button.btn.btn-primary.btn-block {
   right: 45%;
 }
 
+.title-of-change-password {
+  position: absolute;
+  top: 10%;
+  right: 37%;
+  color: white;
+  font-size: xx-large;
+}
+
+.form-change-password {
+  background: linear-gradient(180deg, rgba(47,235,237,1) 0%, rgba(145,203,197,1) 50%, rgba(255,213,114,1) 100%, rgba(253,187,45,1) 100%);
+}
+
+.d-flex.form-style.form-change-password {
+  box-shadow: none;
+  border: none;
+}
 
 @media only screen and (min-width: 992px) {
   .form-img img {
@@ -94,6 +110,10 @@ button.btn.btn-primary.btn-block {
   
   .title-of-form-login {
     right: 22%;
+  }
+
+  .title-of-change-password {
+    right: 42.5%;
   }
   
 }
