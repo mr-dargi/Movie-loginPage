@@ -99,6 +99,62 @@ if(plainTextPassword.length < 8) {
 
 })
 
+app.post("/api/change-password", async (req, res) => {
+  const { token, oldPassword, newPassword } = req.body;
+
+  console.log(token, oldPassword, newPassword);
+
+
+  if(!oldPassword || typeof oldPassword !== "string") {
+    return res.json({
+      status: "error",
+      error: "Invalid password"
+    })
+  }
+
+  if(!newPassword || typeof newPassword !== "string") {
+    return res.json({
+      status: "error",
+      error: "Invalid password"
+    })
+  }
+
+  if(newPassword.length < 8) {
+    return res.json({
+      status: "error",
+      error: "Password is too small, the password should be atleast 8 character"
+    })
+  }
+
+
+  try {
+    const user = jwt.verify(token, JWT_SECRET);
+
+    const _id = user.id;
+
+    const findUser = await User.findOne({ _id }).lean();
+
+    console.log(findUser);
+
+    if(await bcrypt.compare(oldPassword, findUser.password)) {
+      const hashPassword = await bcrypt.hash(newPassword, 10);
+
+      await User.updateOne({ _id }, {
+        $set: { password: hashPassword }
+      })
+    }
+
+    res.json({
+      status: "ok"
+    })
+  } catch(error) {
+    res.json({
+      status: "error",
+      error: ":))"
+    })
+  }
+})
+
 app.post("/api/login", async (req, res) => {
   const { username, password } = req.body;;
 
